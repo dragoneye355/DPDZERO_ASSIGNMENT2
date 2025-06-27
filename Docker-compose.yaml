@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  service1:
+    build:
+      context: ./service_1
+    container_name: service1
+    expose:
+      - "8001"
+
+  service2:
+    build:
+      context: ./service_2
+    container_name: service2
+    expose:
+      - "8002"
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx-reverse-proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - service1
+      - service2
